@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Home Page</h1>
+
+
+  {% for message in messages %}
+            {{message}}
+  {% endfor %} 
+
+    
+    {% if request.user.is_authenticated%}
+    <h1>{{request.user.email}}</h1> <br>
+    <a href="/logout/">Logout here</a>
+    {% if request.user.is_staff %}
+    <a href="/export/">Export Data</a>
+    <a href="/import/">Import Data</a>
+            
+    {% endif %}
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>firstname</th>
+                <th>lastname</th>
+                <th>email</th>
+            </tr>
+            <tbody>
+                    {% for x in all_usr %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{x.first_name}}</td>
+                        <td>{{x.last_name}}</td>
+                        <td>{{x.email}}</td>
+                        {% if request.user.is_staff %}
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </thead>
+        </table>
+        {%else%}
+        <a href="/login/">Login here</a>
+        <a href="/register/">Register here</a>
+        
+        {%endif%}
+</body>
+</html>
